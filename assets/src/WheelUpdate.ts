@@ -5,7 +5,12 @@ const { ccclass, property } = _decorator;
 @ccclass('WheelUpdate')
 export class WheelUpdate extends Component { 
     private ray = new geometry.Ray(); 
- 
+    rigidBody:RigidBody;
+
+    protected start(){
+        this.rigidBody = this.getComponent(RigidBody);
+    }
+
     isTouchingGround(): boolean {
         const wheelPos = this.node.worldPosition;
         geometry.Ray.set(this.ray, wheelPos.x, wheelPos.y, wheelPos.z, 0, -1, 0);
@@ -13,30 +18,24 @@ export class WheelUpdate extends Component {
     }
 
     tryDamageBridge(): boolean {
-        const wheelPos = this.node.worldPosition;
-        geometry.Ray.set(this.ray, wheelPos.x, wheelPos.y, wheelPos.z, 0, -1, 0);
-        
-        const isRaycastClosest =  PhysicsSystem.instance.raycastClosest(this.ray, 1 << 0, 1.2, false);
         const result = PhysicsSystem.instance.raycastClosestResult;
-    
-        if (isRaycastClosest) {
-            const hitNode = result.collider.node;
-            const bridgeTrigger = hitNode.getComponent(BridgeTrigger);
+        const hitNode = result.collider.node;
+        const bridgeTrigger = hitNode.getComponent(BridgeTrigger);
+
+        if (bridgeTrigger) {
             bridgeTrigger.useDamagePerSecond();
-            
-            if (bridgeTrigger) {
-                return false;  
-            }
-    
             return true;  
         }
-    
+
         return false;  
     }
 
     update(deltaTime: number) {  
-        if (!this.tryDamageBridge()) {
-            return;  
-        } 
+        if (this.isTouchingGround()) {
+            this.tryDamageBridge();
+        }else{
+            var force = new Vec3(0,-25,0);
+            this.rigidBody.applyForce(force, Vec3.ZERO);
+        }
     } 
 }

@@ -25,7 +25,7 @@ export class BridgeTrigger extends Component {
     lastDeltaTime:number;
 
     onLoad() {
-        this.damagePerSecond = 30 +this.id * 0.9;  
+        this.damagePerSecond = 30 +this.id * 0.66;  
         this.health = this.maxHealth; 
 
         const colliders = this.node.getComponents(BoxCollider);
@@ -74,7 +74,7 @@ export class BridgeTrigger extends Component {
         var x = random()*10;
         var z = random()*10;
 
-        this.rigidBody.setLinearVelocity(new Vec3( ( Math.random() * 2 - 1) * 10, -30, ( Math.random() * 2 - 1) * 10));   
+        this.rigidBody.setLinearVelocity(new Vec3( ( Math.random() * 2 - 1) * 10, -15, ( Math.random() * 2 - 1) * 10));   
         const randomAngularVelocity = new Vec3(
             Math.random() * 2 - 1,   
             Math.random() * 2 - 1,  
