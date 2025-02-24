@@ -8,5 +8,18 @@
       "fitHeight": true
     },
     "highQuality": true
-  }
+  },
+  "physics": {
+    "fixedTimeStep": 0.01067,
+    "gravity": {
+      "y": -10
+    },
+    "collisionGroups": [],
+    "collisionMatrix": {
+      "0": 7,
+      "1": 1,
+      "2": 1
+    }
+  },
+  "custom_joint_texture_layouts": []
 }
