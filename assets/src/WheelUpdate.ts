@@ -34,7 +34,7 @@ export class WheelUpdate extends Component {
         if (this.isTouchingGround()) {
             this.tryDamageBridge();
         }else{
-            var force = new Vec3(0,-25,0);
+            var force = new Vec3(0,-35,0);
             this.rigidBody.applyForce(force, Vec3.ZERO);
         }
     } 

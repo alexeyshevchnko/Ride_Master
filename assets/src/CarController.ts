@@ -1,4 +1,5 @@
 import { _decorator, Component, Node, Vec3, input, Input, EventKeyboard, KeyCode, RigidBody, Quat, Collider, ITriggerEvent, EventTouch, sys } from 'cc';
+import { BridgeTrigger } from './BridgeTrigger';
 const { ccclass, property } = _decorator;
 
 @ccclass('CarController')
@@ -52,7 +53,13 @@ export class CarController extends Component {
     }
 
     onCarEnter(event: ITriggerEvent) {
-         console.error("onCarEnter " +event.otherCollider.node.name);
+        console.error("onCarEnter " +event.otherCollider.node.name);
+         
+        const bridgeTrigger = event.otherCollider.node.getComponent(BridgeTrigger);
+            
+        if (bridgeTrigger) {
+            bridgeTrigger.forceDeath(); 
+        }
     }
 
     onTouchStart(event: EventTouch) {
