@@ -25,7 +25,7 @@ export class BridgeTrigger extends Component {
     lastDeltaTime:number;
 
     onLoad() {
-        this.damagePerSecond = 30 +this.id * 0.7;  
+        this.damagePerSecond = 30 +this.id * 0.9;  
         this.health = this.maxHealth; 
 
         const colliders = this.node.getComponents(BoxCollider);

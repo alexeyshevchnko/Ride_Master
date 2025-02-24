@@ -2106,7 +2106,7 @@
       "__type__": "cc.Vec3",
       "x": 0,
       "y": 0,
-      "z": 1
+      "z": 0.8
     },
     "_id": "6ex3YWTTNA5pIU2uWgCeBs"
   },
@@ -15250,7 +15250,7 @@
         "__id__": 528
       }
     ],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 537
