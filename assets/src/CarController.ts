@@ -34,7 +34,8 @@ export class CarController extends Component {
     
     isTouching = false;
     rigidBody: RigidBody = null;
-
+    lastDeltaTime: number;
+    summDeltaTime: number;
     start() {
         this.rigidBody = this.car.getComponent(RigidBody);
         if (!this.rigidBody) {
@@ -63,36 +64,42 @@ export class CarController extends Component {
     }
 
     update(deltaTime: number) {
-        if(this.isTouching){
+        this.lastDeltaTime = deltaTime;
+        this.summDeltaTime +=deltaTime;
+
+        if (this.isTouching) {
             const force = new Vec3();
-            force.set(this.acceleration, 0, 0); 
+            force.set(this.acceleration * deltaTime, 0, 0);  // Умножаем на deltaTime для стабильности
             this.rigidBody.applyForce(force, Vec3.ZERO);
         }
-
+    
         const currentVelocity = new Vec3();
         this.rigidBody.getLinearVelocity(currentVelocity);
-
+    
+        // Ограничиваем скорость
         if (currentVelocity.x > this.maxSpeed) {
             this.rigidBody.setLinearVelocity(new Vec3(this.maxSpeed, currentVelocity.y, currentVelocity.z));
         } else if (currentVelocity.x < -this.maxSpeed) {
             this.rigidBody.setLinearVelocity(new Vec3(-this.maxSpeed, currentVelocity.y, currentVelocity.z));
-        }      
+        }
     }
+    
 
     onKeyPressing(event: EventKeyboard) {
         const force = new Vec3();
         switch (event.keyCode) {
             case KeyCode.ARROW_UP: 
             case KeyCode.KEY_W:
-                force.set(this.acceleration, 0, 0); 
+                force.set(this.acceleration*this.summDeltaTime, 0, 0); 
                 this.rigidBody.applyForce(force, Vec3.ZERO);
                 break;
             case KeyCode.ARROW_DOWN: 
             case KeyCode.KEY_S:
-                force.set(-this.acceleration, 0, 0); 
+                force.set(-this.acceleration*this.summDeltaTime, 0, 0); 
                 this.rigidBody.applyForce(force, Vec3.ZERO);
                 break;
         }
+        this.summDeltaTime =0;
     }
 
     onDestroy() {

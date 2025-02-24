@@ -2049,9 +2049,9 @@
     "backRightWheel": {
       "__id__": 24
     },
-    "acceleration": 150,
-    "maxSpeed": 1500,
-    "deceleration": 600,
+    "acceleration": 4700,
+    "maxSpeed": 500,
+    "deceleration": 200,
     "_id": "3asNwz8g1GDrYu7PG8Y8NI"
   },
   {
@@ -2099,7 +2099,7 @@
     "_linearFactor": {
       "__type__": "cc.Vec3",
       "x": 1,
-      "y": 2,
+      "y": 1,
       "z": 0
     },
     "_angularFactor": {
