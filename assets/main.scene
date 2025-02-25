@@ -367,8 +367,8 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": -3.325,
-      "y": 2.809,
+      "x": -17.426,
+      "y": 0.027,
       "z": 0
     },
     "_lrot": {
@@ -2049,9 +2049,9 @@
     "backRightWheel": {
       "__id__": 24
     },
-    "acceleration": 4700,
-    "maxSpeed": 500,
-    "deceleration": 200,
+    "acceleration": 50,
+    "maxSpeed": 80,
+    "deceleration": 50,
     "_id": "3asNwz8g1GDrYu7PG8Y8NI"
   },
   {
@@ -12231,7 +12231,7 @@
     "__prefab": null,
     "debug": true,
     "id": 46,
-    "maxHealth": 5,
+    "maxHealth": 3,
     "damagePerSecond": 25,
     "_id": "3fwFLlOcVHUZLxYuenQVEW"
   },
@@ -12438,7 +12438,7 @@
     "__prefab": null,
     "debug": true,
     "id": 47,
-    "maxHealth": 5,
+    "maxHealth": 3,
     "damagePerSecond": 25,
     "_id": "b1reoU1uZHCLrJxoofkU5v"
   },
@@ -12645,7 +12645,7 @@
     "__prefab": null,
     "debug": true,
     "id": 48,
-    "maxHealth": 5,
+    "maxHealth": 3,
     "damagePerSecond": 25,
     "_id": "e5hSDVf/xLooXUCT5wtglM"
   },
@@ -12852,7 +12852,7 @@
     "__prefab": null,
     "debug": true,
     "id": 49,
-    "maxHealth": 5,
+    "maxHealth": 3,
     "damagePerSecond": 25,
     "_id": "9ee2nixFRBAYoqXqhjItTc"
   },
@@ -13059,7 +13059,7 @@
     "__prefab": null,
     "debug": true,
     "id": 50,
-    "maxHealth": 5,
+    "maxHealth": 3,
     "damagePerSecond": 25,
     "_id": "adKnCEDI5E6Lv2/GI4x3l/"
   },
@@ -13266,7 +13266,7 @@
     "__prefab": null,
     "debug": true,
     "id": 51,
-    "maxHealth": 5,
+    "maxHealth": 3,
     "damagePerSecond": 25,
     "_id": "47a0ZumXNAurn3E/vB97Oh"
   },
@@ -13473,7 +13473,7 @@
     "__prefab": null,
     "debug": true,
     "id": 52,
-    "maxHealth": 5,
+    "maxHealth": 3,
     "damagePerSecond": 25,
     "_id": "b88aOHiJVEA4OW9fVhnb7l"
   },
@@ -13680,7 +13680,7 @@
     "__prefab": null,
     "debug": true,
     "id": 53,
-    "maxHealth": 5,
+    "maxHealth": 3,
     "damagePerSecond": 25,
     "_id": "22i7jh4XZKhI0gNvtpoKXo"
   },
@@ -13887,7 +13887,7 @@
     "__prefab": null,
     "debug": true,
     "id": 54,
-    "maxHealth": 5,
+    "maxHealth": 3,
     "damagePerSecond": 25,
     "_id": "2bZ3UtqSpG/7mV/8liHB4P"
   },
@@ -14094,7 +14094,7 @@
     "__prefab": null,
     "debug": true,
     "id": 55,
-    "maxHealth": 5,
+    "maxHealth": 3,
     "damagePerSecond": 25,
     "_id": "f4cHfzl7xPYrTwfnbMR+3V"
   },
@@ -14301,7 +14301,7 @@
     "__prefab": null,
     "debug": true,
     "id": 56,
-    "maxHealth": 5,
+    "maxHealth": 3,
     "damagePerSecond": 25,
     "_id": "f0Fi3RlCtJgb8ctYF42srY"
   },
@@ -14508,7 +14508,7 @@
     "__prefab": null,
     "debug": true,
     "id": 57,
-    "maxHealth": 5,
+    "maxHealth": 1,
     "damagePerSecond": 25,
     "_id": "75QUuwifRDUYCdntCWGzmI"
   },
@@ -14715,7 +14715,7 @@
     "__prefab": null,
     "debug": true,
     "id": 58,
-    "maxHealth": 5,
+    "maxHealth": 1,
     "damagePerSecond": 25,
     "_id": "86fKKiZXRIYIe9drYVvJ0w"
   },
@@ -14922,7 +14922,7 @@
     "__prefab": null,
     "debug": true,
     "id": 59,
-    "maxHealth": 5,
+    "maxHealth": 1,
     "damagePerSecond": 25,
     "_id": "feQS7Vf8hEpay9x6cNzCYW"
   },
@@ -15129,7 +15129,7 @@
     "__prefab": null,
     "debug": true,
     "id": 60,
-    "maxHealth": 5,
+    "maxHealth": 1,
     "damagePerSecond": 25,
     "_id": "a9or6ygClDkYYBLvpuBHd6"
   },
@@ -15349,7 +15349,7 @@
     "_priority": 1073741824,
     "_fov": 45,
     "_fovAxis": 0,
-    "_orthoHeight": 217.5226586102719,
+    "_orthoHeight": 960,
     "_near": 1,
     "_far": 2000,
     "_color": {

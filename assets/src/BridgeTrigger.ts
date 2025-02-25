@@ -22,7 +22,6 @@ export class BridgeTrigger extends Component {
     private isCarOnBridge: boolean = false;
     private rigidBody: RigidBody = null;
     private carRigidBody: RigidBody = null;
-    lastDeltaTime:number;
 
     onLoad() {
         this.damagePerSecond = 30 +this.id * .555;  
@@ -43,17 +42,14 @@ export class BridgeTrigger extends Component {
             return;
         } 
     }
-
-    update(deltaTime: number) {
-        this.lastDeltaTime = deltaTime; 
-    }
-
-    useDamagePerSecond(){
+ 
+    useDamagePerSecond(dt:number){
+        this.health -= this.damagePerSecond * dt; 
         
-        this.health -= this.damagePerSecond * this.lastDeltaTime; 
         if (this.health <= 0) {
             this.breakBridge();
         }
+        
     }
 
     forceDeath(){

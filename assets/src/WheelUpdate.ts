@@ -14,16 +14,16 @@ export class WheelUpdate extends Component {
     isTouchingGround(): boolean {
         const wheelPos = this.node.worldPosition;
         geometry.Ray.set(this.ray, wheelPos.x, wheelPos.y, wheelPos.z, 0, -1, 0);
-        return PhysicsSystem.instance.raycastClosest(this.ray, 1 << 0, 1.2, false);
+        return PhysicsSystem.instance.raycastClosest(this.ray, 1 << 0, 1.4, false);
     }
 
-    tryDamageBridge(): boolean {
+    tryDamageBridge(dt:number): boolean {
         const result = PhysicsSystem.instance.raycastClosestResult;
         const hitNode = result.collider.node;
         const bridgeTrigger = hitNode.getComponent(BridgeTrigger);
 
         if (bridgeTrigger) {
-            bridgeTrigger.useDamagePerSecond();
+            bridgeTrigger.useDamagePerSecond(dt);
             return true;  
         }
 
@@ -32,7 +32,7 @@ export class WheelUpdate extends Component {
 
     update(deltaTime: number) {  
         if (this.isTouchingGround()) {
-            this.tryDamageBridge();
+            this.tryDamageBridge(deltaTime);
         }else{
             var force = new Vec3(0,-35,0);
             this.rigidBody.applyForce(force, Vec3.ZERO);
