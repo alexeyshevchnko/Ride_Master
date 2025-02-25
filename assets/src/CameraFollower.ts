@@ -20,6 +20,8 @@ export class CameraFollower extends Component {
             
             const cameraPosition = new Vec3(this.target.position.x + this.offset.x, this.offset.y, this.offset.z);
             
+            if(this.target.position.x > 130 || this.target.position.y<-2)
+                return;
             
             this.node.setPosition(cameraPosition);
         }

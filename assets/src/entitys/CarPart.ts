@@ -10,6 +10,8 @@ export class CarPart extends PhysicsAlive {
     @property({ type: RigidBody })
     carRb: RigidBody = null;
 
+    
+
     carModule: CarModule = null; 
 
     summ:number=0;
@@ -32,6 +34,9 @@ export class CarPart extends PhysicsAlive {
 
         var roadDamage = event.otherCollider.node.getComponent(RoadDamage);
         var addDamage = roadDamage ?roadDamage.damage : 0;
+        if(addDamage>0){
+            console.log(addDamage);
+        }
 
         const damage = this.calculateDamage(linearVelocity, angularVelocity, addDamage);
         this.summ+=damage;
@@ -52,6 +57,16 @@ export class CarPart extends PhysicsAlive {
         this.carModule.death();
     }
 
+    getHingeConstraint():HingeConstraint{
+        var constraints = this.carRb.node.getComponents(HingeConstraint);
+        for(var i = 0; i < constraints.length; i++){
+            var constraint = constraints[i];
+            if(constraint.connectedBody == this.rb){
+                return constraint;
+            }
+        }
+        return null;
+    }
 }
 
 

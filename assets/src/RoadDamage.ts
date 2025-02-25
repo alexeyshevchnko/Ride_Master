@@ -4,7 +4,7 @@ const { ccclass, property } = _decorator;
 @ccclass('RoadDamage')
 export class RoadDamage extends Component {
     @property
-    damage:number;
+    damage:number = 10;
 }
 
 

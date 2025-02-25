@@ -53,7 +53,7 @@ export class CarController extends Component {
     }
 
     onCarEnter(event: ITriggerEvent) {
-        console.error("onCarEnter " +event.otherCollider.node.name);
+        //console.error("onCarEnter " +event.otherCollider.node.name);
          
         const bridgeTrigger = event.otherCollider.node.getComponent(BridgeTrigger);
             

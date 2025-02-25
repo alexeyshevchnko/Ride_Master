@@ -80,7 +80,7 @@ export class BridgeTrigger extends Component {
                 Math.random() * 2 - 1,  
                 Math.random() * 2 - 0.6   
             ); 
-                this.rigidBody.setAngularVelocity(randomAngularVelocity);
+            this.rigidBody.setAngularVelocity(randomAngularVelocity);
         } else {
             this.rigidBody.setLinearVelocity(new Vec3(0, -(10 + this.id *0.14), 0));   
             
