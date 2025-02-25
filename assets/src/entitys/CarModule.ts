@@ -56,7 +56,7 @@ export class CarModule extends Component {
             
             var wheelUpdate = part.node.getComponent(WheelUpdate);
             if(wheelUpdate){
-                //wheelUpdate.destroy();
+                wheelUpdate.destroy();
                 //part.rb.destroy();
                 //part.rb.setLinearVelocity(Vec3.ZERO);
                 //part.rb.setAngularVelocity(Vec3.ZERO);  
@@ -74,7 +74,7 @@ export class CarModule extends Component {
         if(!this.isRandomVelocity){
             this.rb.setLinearVelocity(linearVelocity);
             this.rb.setAngularVelocity(angularVelocity);  
-            this.rb.setLinearVelocity(new Vec3(0,-100,0));
+           // this.rb.setLinearVelocity(new Vec3(0,-100,0));
         }else{
             this.rb.setLinearVelocity(new Vec3(
                 Math.random() * (20 - 15) + 15, 
