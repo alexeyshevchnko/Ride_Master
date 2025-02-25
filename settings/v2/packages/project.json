@@ -10,7 +10,7 @@
     "highQuality": true
   },
   "physics": {
-    "fixedTimeStep": 0.01067,
+    "fixedTimeStep": 0.01667,
     "gravity": {
       "y": -10
     },

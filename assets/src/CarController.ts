@@ -1,28 +1,11 @@
-import { _decorator, Component, Node, Vec3, input, Input, EventKeyboard, KeyCode, RigidBody, Quat, Collider, ITriggerEvent, EventTouch, sys } from 'cc';
-import { BridgeTrigger } from './BridgeTrigger';
+import { _decorator, Component, Node, Vec3, input, Input, EventKeyboard, KeyCode, RigidBody } from 'cc';
+import { Joystick } from './Joystick';
 const { ccclass, property } = _decorator;
 
 @ccclass('CarController')
 export class CarController extends Component {
     @property({ type: Node })
     car: Node = null;
-
-    @property({ type: Node })
-    frontLeftWheel: Node = null;
-
-    @property({ type: Node })
-    frontRightWheel: Node = null;
-
-    @property({ type: Node })
-    backLeftWheel: Node = null;
-
-    @property({ type: Node })
-    relativePoint: Node = null;
-
-    rb: RigidBody = null;
-
-    @property({ type: Node })
-    backRightWheel: Node = null;
 
     @property
     acceleration: number = 50;
@@ -31,12 +14,10 @@ export class CarController extends Component {
     maxSpeed: number = 50;
 
     @property
-    deceleration: number = 5;
-    
-    isTouching = false;
-    rigidBody: RigidBody = null;
-    lastDeltaTime: number;
-    summDeltaTime: number;
+    deceleration: number = 20; // Увеличил, чтобы торможение было эффективнее
+
+    private rigidBody: RigidBody = null;
+
     start() {
         this.rigidBody = this.car.getComponent(RigidBody);
         if (!this.rigidBody) {
@@ -45,57 +26,68 @@ export class CarController extends Component {
         }
 
         input.on(Input.EventType.KEY_PRESSING, this.onKeyPressing, this);
-        input.on(Input.EventType.TOUCH_START, this.onTouchStart, this);
-        input.on(Input.EventType.TOUCH_END, this.onTouchEnd, this); 
-    }
- 
-
-    onTouchStart(event: EventTouch) {
-        this.isTouching = true;
-    }
-
-    onTouchEnd(event: EventTouch) {
-        this.isTouching = false;
     }
 
     update(deltaTime: number) {
-        this.lastDeltaTime = deltaTime;
-    
-        if (this.isTouching) {
+        let inputY = Joystick.inputY;
+
+        const velocity = new Vec3();
+        this.rigidBody.getLinearVelocity(velocity);
+        let speed = velocity.length();
+
+        if (inputY > 0) {
+            // Ускорение вперёд
             const impulse = new Vec3(this.acceleration * deltaTime, 0, 0);
             this.rigidBody.applyImpulse(impulse, Vec3.ZERO);
+        } else if (inputY < 0) {
+            // Торможение
+            let brakeForce = this.deceleration * deltaTime;
+            speed = Math.max(0, speed - brakeForce);
+            velocity.normalize().multiplyScalar(speed);
+            this.rigidBody.setLinearVelocity(velocity);
         }
-    
-        const currentVelocity = new Vec3();
-        this.rigidBody.getLinearVelocity(currentVelocity);
-    
-        // Ограничение скорости
-        const speed = currentVelocity.length();
+
+        // Ограничение максимальной скорости
         if (speed > this.maxSpeed) {
-            currentVelocity.multiplyScalar(this.maxSpeed / speed);
-            this.rigidBody.setLinearVelocity(currentVelocity);
+            velocity.normalize().multiplyScalar(this.maxSpeed);
+            this.rigidBody.setLinearVelocity(velocity);
         }
     }
-    
+
     onKeyPressing(event: EventKeyboard) {
-        const impulse = new Vec3();
-        switch (event.keyCode) {
-            case KeyCode.ARROW_UP: 
+        this.useKeyCode(event.keyCode);
+    }
+
+    useKeyCode(keyCode: KeyCode) {
+        switch (keyCode) {
+            case KeyCode.ARROW_UP:
             case KeyCode.KEY_W:
-                impulse.set(this.acceleration * this.lastDeltaTime, 0, 0);
-                this.rigidBody.applyImpulse(impulse, Vec3.ZERO);
+                this.applyAcceleration();
                 break;
-            case KeyCode.ARROW_DOWN: 
+            case KeyCode.ARROW_DOWN:
             case KeyCode.KEY_S:
-                impulse.set(-this.acceleration * this.lastDeltaTime, 0, 0);
-                this.rigidBody.applyImpulse(impulse, Vec3.ZERO);
+                this.applyBraking();
                 break;
         }
+    }
+
+    private applyAcceleration() {
+        const impulse = new Vec3(this.acceleration * 0.016, 0, 0);
+        this.rigidBody.applyImpulse(impulse, Vec3.ZERO);
+    }
+
+    private applyBraking() {
+        const velocity = new Vec3();
+        this.rigidBody.getLinearVelocity(velocity);
+        let speed = velocity.length();
+
+        let brakeForce = this.deceleration * 0.016;
+        speed = Math.max(0, speed - brakeForce);
+        velocity.normalize().multiplyScalar(speed);
+        this.rigidBody.setLinearVelocity(velocity);
     }
 
     onDestroy() {
         input.off(Input.EventType.KEY_PRESSING, this.onKeyPressing, this);
-        input.off(Input.EventType.TOUCH_START, this.onTouchStart, this);
-        input.off(Input.EventType.TOUCH_END, this.onTouchEnd, this);
     }
 }
