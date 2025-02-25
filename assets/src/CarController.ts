@@ -46,21 +46,9 @@ export class CarController extends Component {
 
         input.on(Input.EventType.KEY_PRESSING, this.onKeyPressing, this);
         input.on(Input.EventType.TOUCH_START, this.onTouchStart, this);
-        input.on(Input.EventType.TOUCH_END, this.onTouchEnd, this);
-        
-        const collider = this.getComponent(Collider);
-        collider.on('onTriggerEnter', this.onCarEnter, this);
+        input.on(Input.EventType.TOUCH_END, this.onTouchEnd, this); 
     }
-
-    onCarEnter(event: ITriggerEvent) {
-        //console.error("onCarEnter " +event.otherCollider.node.name);
-         
-        const bridgeTrigger = event.otherCollider.node.getComponent(BridgeTrigger);
-            
-        if (bridgeTrigger) {
-            bridgeTrigger.forceDeath(); 
-        }
-    }
+ 
 
     onTouchStart(event: EventTouch) {
         this.isTouching = true;
@@ -104,16 +92,10 @@ export class CarController extends Component {
                 break;
         }
     }
-    
 
     onDestroy() {
         input.off(Input.EventType.KEY_PRESSING, this.onKeyPressing, this);
         input.off(Input.EventType.TOUCH_START, this.onTouchStart, this);
         input.off(Input.EventType.TOUCH_END, this.onTouchEnd, this);
-        
-        const collider = this.getComponent(Collider);
-        if (collider) {
-            collider.off('onTriggerEnter', this.onCarEnter, this);
-        }
     }
 }

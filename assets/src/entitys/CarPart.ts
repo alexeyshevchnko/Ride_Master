@@ -33,14 +33,10 @@ export class CarPart extends PhysicsAlive {
         this.carRb.getAngularVelocity(angularVelocity);
 
         var roadDamage = event.otherCollider.node.getComponent(RoadDamage);
-        var addDamage = roadDamage ?roadDamage.damage : 0;
-        if(addDamage>0){
-            console.log(addDamage);
-        }
+        var addDamage = roadDamage ?roadDamage.damage : 0; 
 
         const damage = this.calculateDamage(linearVelocity, angularVelocity, addDamage);
-        this.summ+=damage;
-        //console.log("Урон колеса: ", this.summ);
+        this.summ+=damage; 
         this.applyDamage(damage, this);
     }
 
