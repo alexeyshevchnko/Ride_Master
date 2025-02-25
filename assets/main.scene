@@ -2616,8 +2616,8 @@
     "carRb": {
       "__id__": 21
     },
-    "maxRotationSpeed": 5000,
-    "accelerationFactor": 300,
+    "maxRotationSpeed": 500000,
+    "accelerationFactor": 200,
     "_id": "706EiUKBxH5J6+Avz83EPY"
   },
   {
