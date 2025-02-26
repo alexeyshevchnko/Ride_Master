@@ -1,4 +1,5 @@
 import { _decorator, Component, EventTouch, Input, input, Node, Vec3, tween } from 'cc';
+import { CarController } from './CarController';
 const { ccclass, property } = _decorator;
 
 @ccclass('Joystick')
@@ -33,6 +34,12 @@ export class Joystick extends Component {
         this.scheduleOnce(() => {
             this.startHandTutorial();
         }, this.handStartSleepTime); 
+
+        CarController.deathEvent.push(this.onDeathCar.bind(this));
+    }
+
+    onDeathCar(){
+        this.node.parent.active = false;
     }
 
     onTouchStart(event: EventTouch) {

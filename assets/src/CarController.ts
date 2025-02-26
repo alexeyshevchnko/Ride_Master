@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Vec3, input, Input, EventKeyboard, KeyCode, RigidBody } from 'cc';
+import { _decorator, Component, Node, Vec3, input, Input, EventKeyboard, KeyCode, RigidBody, game } from 'cc';
 import { Joystick } from './Joystick';
 const { ccclass, property } = _decorator;
 
@@ -14,11 +14,17 @@ export class CarController extends Component {
     maxSpeed: number = 50;
 
     @property
-    deceleration: number = 20; // Увеличил, чтобы торможение было эффективнее
+    deceleration: number = 20; 
 
-    private rigidBody: RigidBody = null;
+    rigidBody: RigidBody = null;
+
+    static deathEvent: Function[] = [];
+
+    isDeath:boolean = false;
 
     start() {
+        game.frameRate = 59;
+
         this.rigidBody = this.car.getComponent(RigidBody);
         if (!this.rigidBody) {
             console.error('No RigidBody attached to the car');
@@ -36,22 +42,25 @@ export class CarController extends Component {
         let speed = velocity.length();
 
         if (inputY > 0) {
-            // Ускорение вперёд
             const impulse = new Vec3(this.acceleration * deltaTime, 0, 0);
             this.rigidBody.applyImpulse(impulse, Vec3.ZERO);
         } else if (inputY < 0) {
-            // Торможение
             let brakeForce = this.deceleration * deltaTime;
             speed = Math.max(0, speed - brakeForce);
             velocity.normalize().multiplyScalar(speed);
             this.rigidBody.setLinearVelocity(velocity);
         }
 
-        // Ограничение максимальной скорости
         if (speed > this.maxSpeed) {
             velocity.normalize().multiplyScalar(this.maxSpeed);
             this.rigidBody.setLinearVelocity(velocity);
         }
+
+        if(!this.isDeath && (this.node.position.x > 130 || this.node.position.y<-2)){
+            this.isDeath = true;
+            CarController.deathEvent.forEach(func => func());
+        }
+
     }
 
     onKeyPressing(event: EventKeyboard) {
