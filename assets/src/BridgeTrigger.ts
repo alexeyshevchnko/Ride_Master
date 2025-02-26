@@ -24,7 +24,7 @@ export class BridgeTrigger extends Component {
     private carRigidBody: RigidBody = null;
 
     onLoad() {
-        this.damagePerSecond = 30 +this.id * .555;  
+        this.damagePerSecond = 30 +this.id * .5;  
         this.health = this.maxHealth; 
 
         const colliders = this.node.getComponents(BoxCollider);
@@ -72,7 +72,7 @@ export class BridgeTrigger extends Component {
         if (isRandomMotion) {
             this.rigidBody.setLinearVelocity(new Vec3(
                 (Math.random() * 2 - 1) * 5, 
-                -7, 
+                -10, 
                 (Math.random() * 2 - 1) * 5
             ));    
             const randomAngularVelocity = new Vec3(

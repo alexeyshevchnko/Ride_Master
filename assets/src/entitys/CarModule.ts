@@ -32,8 +32,7 @@ export class CarModule extends Component {
         }
     }
     
-    death(){
-        console.log("death CarModule " + this.name);
+    death(){ 
 
         let linearVelocity = new Vec3();
         let angularVelocity = new Vec3();
